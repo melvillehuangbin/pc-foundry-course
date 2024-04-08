@@ -7,6 +7,7 @@ import {Counter} from "../src/Counter.sol";
 contract CounterTest is Test {
     Counter public counter;
 
+    // Calls this set up function
     function setUp() public {
         counter = new Counter();
         counter.setNumber(0);
