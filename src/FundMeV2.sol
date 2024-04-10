@@ -11,6 +11,10 @@ Block 2
 1. set the storage variables to use the format s_x
 2. we also want to keep the visibility of these variables to private unless its necessary to make them public
 3. setting them to private means we need to create getters and senders for them
+
+Block 3 - Gas Optimization
+1. create a new function cheaperWithdraw() to compare gas cost between old and new withdraw functions
+    - read s_funders from within function (memory) rather than from storage
 */
 
 // SPDX-License-Identifier: MIT
@@ -26,7 +30,7 @@ contract FundMe {
 
     error FundMe__NotOwner();
 
-    address public immutable i_owner;
+    address private immutable i_owner;
     uint256 public constant MINIMUM_USD = 5e18;
 
     AggregatorV3Interface private s_priceFeed;
@@ -60,6 +64,19 @@ contract FundMe {
          require(sendSuccess, "Failed to send Ether");
     }
 
+    function cheaperWithdraw() public isOwner {
+        uint256 numberOfFunders = s_listOfFunders.length;
+        for(uint256 _funderIndex=0; _funderIndex < numberOfFunders; _funderIndex++) {
+            address _funder = s_listOfFunders[_funderIndex];
+            s_addressToAmountFunded[_funder] = 0;
+        }
+         
+         s_listOfFunders = new address[](0);
+
+         (bool sendSuccess , /* bytes memory dataReturned */) = address(msg.sender).call{ value: address(this).balance }("");
+         require(sendSuccess, "Failed to send Ether");
+    }
+
     function getVersion() external view returns(uint256) {
         return s_priceFeed.version();
     }
@@ -82,5 +99,9 @@ contract FundMe {
         address _fundingAddress
     ) external view returns(uint256) {
         return s_addressToAmountFunded[_fundingAddress];
+    }
+
+    function getOwnerAddress() public view returns(address) {
+        return i_owner;
     }
 }

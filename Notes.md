@@ -56,3 +56,8 @@ Objective: Include other chains other than Sepolia to test our contracts on. No 
 2. call `.version()` directly on newly created `s_priceFeed` variable
 3. import `DeployFundMe` into the `FundMeTest` script and execute the `run()` function to create a new `FundMe` contract during each test run
 4. By using `DeployFundMe` contract to call the `FundMe` contract, the msg.sender is now the contract owner (delegate call)
+
+
+## Storage
+ - Refer to Storage Concept Pic
+ - Variables that are declared within functions also do not take up space in the "Storage" array
