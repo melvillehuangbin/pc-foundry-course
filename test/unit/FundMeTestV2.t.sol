@@ -69,9 +69,9 @@ Block 4 - Making our tests more gas efficient
 
 pragma solidity ^0.8.19;
 
-import {Test, console} from "../lib/forge-std/src/Test.sol";
-import {FundMe} from "../src/FundMeV2.sol";
-import {DeployFundMe} from "../script/DeployFundMeV2.s.sol";
+import {Test, console} from "../../lib/forge-std/src/Test.sol";
+import {FundMe} from "../../src/FundMeV2.sol";
+import {DeployFundMe} from "../../script/DeployFundMeV2.s.sol";
 
 contract FundMeTest is Test {
 

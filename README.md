@@ -66,7 +66,9 @@ $ cast --help
 ```
 
 
-1. Proper README
-2. Integration tests
+1. Proper README ✅
+2. Integration tests ✅
+    1. How to make running these scripts easier?
+        - Makefile
 3. Programatic verification
 4. Push to Github
